@@ -1,6 +1,9 @@
-def main():
-    print("Hello from portfolio!")
+from fasthtml.common import FastHTML, serve
 
+app = FastHTML()
 
-if __name__ == "__main__":
-    main()
+@app.get("/")
+def home():
+    return "<h1>Hello, World</h1>"
+
+serve()
