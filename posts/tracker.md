@@ -4,7 +4,8 @@ description: "A description of what i set out to achieve in next 6 months"
 author: "Risheek kumar B"
 categories: ['Blog', 'Plan']
 date: "2025-10-13"
-image: 'https://picsum.photos/400/200?random=11'
+image: 'https://picsum.photos/300/150?random=11'
+slug: 'tracker'
 ---
 # 🧭 FAANG MLE Job Tracker
 
