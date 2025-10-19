@@ -1,8 +1,10 @@
 ---
-title: Plan for 6 months
-author: Risheek kumar B
-tag: plan
-date: 2025-10-13
+title: "Plan for 6 months"
+description: "A description of what i set out to achieve in next 6 months"
+author: "Risheek kumar B"
+categories: ['Blog', 'Plan']
+date: "2025-10-13"
+image: 'https://picsum.photos/400/200?random=11'
 ---
 # 🧭 FAANG MLE Job Tracker
 
@@ -16,8 +18,6 @@ Track your progress:
 - ✅ **5+ informational interviews** with FAANG MLEs  
 - ✅ **2+ open-source contributions**  
 - ✅ **2+ technical blog posts** with 1000+ views  
-
----
 
 ## 🧱 Level 1 – Foundation: Deep Learning Expertise (NLP Focus)
 
@@ -37,8 +37,6 @@ Track your progress:
 - ✅ Portfolio + GitHub + LinkedIn presence  
 - ✅ 1 blog post with 1,000+ views  
 
----
-
 ## ⚙️ Level 2 – Productionization: MLOps & Engineering Depth
 
 ### Goal 2: Deep Learning MLOps Projects
@@ -56,8 +54,6 @@ Track your progress:
 - ✅ 2 deployed projects (with APIs + monitoring)  
 - ✅ 6 ML system design problems documented  
 - ✅ 1 open-source infra-level PR (logging/testing/configs)
-
----
 
 ## 🚀 Level 3 – Scaling & FAANG-Readiness
 
@@ -82,8 +78,6 @@ Track your progress:
 - ✅ All projects scaled + optimized  
 - ✅ Resume + portfolio finalized  
 - ✅ Applications out + mock interviews done  
-
----
 
 ## 🧩 Missing / Weak Pieces (to fix)
 
@@ -123,8 +117,6 @@ Track your progress:
 - **A/B Testing:** Experimentation, metrics design, causality  
 - **Cross-functional ML:** Translating business needs → ML systems  
 
----
-
 ## 🗓️ 6-Month Timeline
 
 ### **Month 1 – Foundation + Visibility**
@@ -136,8 +128,6 @@ Track your progress:
 - [ ] Read 2 ML system design case studies  
 - **Deliverable:** Portfolio live + visibility started
 
----
-
 ### **Month 2 – Deep Learning + Interview Prep**
 - [ ] Finish fast.ai  
 - [ ] Complete first paper implementation + blog  
@@ -147,8 +137,6 @@ Track your progress:
 - [ ] 2 informational interviews  
 - **Deliverable:** 1 paper implementation live + blog
 
----
-
 ### **Month 3 – Production ML + Engineering Rigor**
 - [ ] Third paper implementation  
 - [ ] Start Project 1: Real-time NLP serving system  
@@ -156,8 +144,6 @@ Track your progress:
 - [ ] 20 LeetCode problems  
 - [ ] 2 ML system design problems  
 - **Deliverable:** 3 paper implementations + first project draft
-
----
 
 ### **Month 4 – MLOps Depth + Monitoring**
 - [ ] Finish Project 1 with monitoring  
@@ -167,8 +153,6 @@ Track your progress:
 - [ ] 2 more informational interviews  
 - **Deliverable:** Project 1 deployed + monitored
 
----
-
 ### **Month 5 – Distributed Systems + Open Source**
 - [ ] Add Spark/Ray to Project 2  
 - [ ] 1st open-source contribution  
@@ -176,8 +160,6 @@ Track your progress:
 - [ ] 3 system design problems  
 - [ ] Learn A/B testing fundamentals  
 - **Deliverable:** Project 2 live + 1 open-source PR merged
-
----
 
 ### **Month 6 – Polish + Interview Blitz**
 - [ ] Optimize models (quantization/distillation)  
@@ -188,16 +170,12 @@ Track your progress:
 - [ ] Final networking push  
 - **Deliverable:** All projects polished + applications sent  
 
----
-
 ## 🧠 Continuous Learning Loop (Monthly)
 | Type | Example | Deliverable |
 |------|----------|-------------|
 | 🧩 Research Paper | Transformer / LoRA / Distillation | Summary blog |
 | ⚙️ Engineering Blog | Netflix ML Infra / Meta AI | LinkedIn post |
 | 👣 Career Story | FAANG MLE interview story | Reflection post |
-
----
 
 ## 🧰 Tech Stack Focus
 
@@ -211,8 +189,6 @@ Track your progress:
 | Infra | CI/CD, Logging, Config Management |
 | Data | Pandas, Polars, PySpark |
 | Deployment | GCP / AWS / Render / HuggingFace Spaces |
-
----
 
 ## 🗃️ Tracking Dashboard (Notion / Spreadsheet)
 
