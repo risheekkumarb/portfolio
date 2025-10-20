@@ -21,9 +21,9 @@ def _sorted_metas(post_metas):
 
 def BlogCard(meta):
     image_path = meta.get('image', 'https://picsum.photos/300/150?random=13')
-    im = Img(src=image_path, style="width=100px", cls='hidden md:block')
+    im = Img(src=image_path, cls='hidden md:block')
     return Card(
-        DivLAligned(A(im, href=f"/{meta.slug}"),
+        DivLAligned(A(im, href=posts.to(fname=meta.slug)),
             Div(H3(meta.title), 
             P(meta.description, cls=TextPresets.muted_sm),
             P(meta.author),
@@ -33,15 +33,15 @@ def BlogCard(meta):
                 cls=(TextPresets.muted_sm, 'gap-2')),
             DivFullySpaced(DivLAligned(map(Label, meta.categories),
                            cls='gap-4 mt-2'),
-            A(Button("Read More", cls=ButtonT.primary), href=f"/{meta.slug}")),
+            A(Button("Read More", cls=ButtonT.primary), href=posts.to(fname=meta.slug))),
             cls='w-full')),
         cls=(CardT.hover, 'rounded-lg', 'space-x-4'))
 
 def navbar(active_page):
     return NavBar(A("Home",href='/'),
-                  A("Blog",href='/blog'),
-                  A("Work",href='/work'),
-                  A("About",href='/about'),
+                  A("Blog",href=blog.to()),
+                  A("Work",href=work.to()),
+                  A("About",href=about.to()),
                   brand=H3(active_page.capitalize()))
 
 @rt
@@ -56,6 +56,24 @@ def blog():
             cls='space-y-2'
         ),
         Grid(*post_metas, cols_max=1, cls=('space-y-4', 'mt-4')),
+        cls=(ContainerT.lg, 'space-y-8', 'mt-4'))
+
+## Article Pages
+def ex_articles(meta, content):
+    return Article(
+        ArticleTitle(meta.title), 
+        Subtitle("By: " + meta.author),
+        render_md(content),
+        cls = 'mb-4'
+    )
+
+@rt
+def posts(fname: str):
+    meta, content = get_post('posts/' + fname + '.md')
+    return Container(
+        Div(navbar('Reading Blog'),
+        Button('[ back ]', onclick='history.back()', cls=ButtonT.ghost, style='color: blue; text-decoration: underline;')),
+        ex_articles(meta, content),
         cls=(ContainerT.lg, 'space-y-8', 'mt-4'))
 
 @rt
@@ -83,7 +101,7 @@ def SocialLink(icon, href):
     return A(DivHStacked(UkIcon(icon, height=16), Strong(icon)), href=href)
 
 def ProfilePage(img_src, img_alt='profile image', nav_items=None):
-    if nav_items is None: nav_items = [('home', '#'), ('blog', '/blog'), ('work', '/work'), ('about', '/about')]
+    if nav_items is None: nav_items = [('home', '#'), ('blog', blog.to()), ('work', work.to()), ('about', about.to())]
     return Div(
         DivFullySpaced(
             Img(src=img_src, alt=img_alt, style='width:200px; height:200px; object-fit:cover'),
@@ -106,25 +124,8 @@ def index():
         profile,
         Divider(cls='border-t-2'),
         DivHStacked(*social_links, cls='justify-center gap-6 mt-4'),
+        # Div('Some interting projects', cls=TextPresets.muted_sm),
         cls=(ContainerT.lg, 'space-y-6 mt-12'),
         style='max-width:400px')
-
-## Article Pages
-def ex_articles(meta, content):
-    return Article(
-        ArticleTitle(meta.title), 
-        Subtitle("By: " + meta.author),
-        render_md(content),
-        cls = 'mb-4'
-    )
-
-@app.get('/{slug}')
-def post(slug: str):
-    meta, content = get_post('posts/' + slug +'.md')
-    return Container(
-        Div(navbar('Reading Blog'),
-        Button('[ back ]', onclick='history.back()', cls=ButtonT.ghost, style='color: blue; text-decoration: underline;')),
-        ex_articles(meta, content),
-        cls=(ContainerT.lg, 'space-y-8', 'mt-4'))
 
 serve()
