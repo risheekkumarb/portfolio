@@ -3,7 +3,7 @@ from monsterui.all import *
 from datetime import datetime
 import yaml, os
 
-hdrs = Theme.violet.headers(mode='light', font='Inter')
+hdrs = Theme.violet.headers(mode='light', font='Roboto')
 
 app, rt = fast_app(hdrs=hdrs, live=True)
 
