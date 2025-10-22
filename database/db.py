@@ -4,7 +4,7 @@ from datetime import datetime
 import yaml, os, numpy as np
 from google import genai
 
-os.environ['GEMINI_API_KEY'] = "AIzaSyAAEXri8NjAcyBZA8G2IrpCRUeEMcJt2C0"
+# os.environ['GEMINI_API_KEY'] = "AIzaSyAAEXri8NjAcyBZA8G2IrpCRUeEMcJt2C0"
 
 client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
 

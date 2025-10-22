@@ -4,8 +4,6 @@ from datetime import datetime
 import yaml, os, numpy as np
 from google import genai
 
-os.environ['GEMINI_API_KEY'] = "AIzaSyAAEXri8NjAcyBZA8G2IrpCRUeEMcJt2C0"
-
 hdrs = Theme.violet.headers(mode='light', font='Roboto')
 
 client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
@@ -85,7 +83,7 @@ def blog():
                 hx_get='/search', hx_target=f'#{search_results_id}', 
                 hx_swap='innerHTML', hx_indicator='#search-spinner'),
             Loading(id='search-spinner', cls=(LoadingT.spinner, LoadingT.sm, 'htmx-indicator')),
-            Button('Search', cls=(ButtonT.primary, ButtonT.sm)),
+            Button('Search', cls=ButtonT.primary, type='button'),
         ),
         Div(id=search_results_id), 
     )    
