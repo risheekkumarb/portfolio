@@ -4,6 +4,7 @@ from datetime import datetime
 import yaml, os, numpy as np
 from google import genai
 
+
 hdrs = Theme.violet.headers(mode='light', font='Roboto')
 
 client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
