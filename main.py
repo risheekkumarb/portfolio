@@ -1,9 +1,15 @@
 from fasthtml.common import *
 from monsterui.all import *
 from datetime import datetime
-import yaml, os
+import yaml, os, numpy as np
+from google import genai
+
+os.environ['GEMINI_API_KEY'] = "AIzaSyAAEXri8NjAcyBZA8G2IrpCRUeEMcJt2C0"
 
 hdrs = Theme.violet.headers(mode='light', font='Roboto')
+
+client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
+db = database("database/main.db")
 
 app, rt = fast_app(hdrs=hdrs, live=True)
 
@@ -38,23 +44,61 @@ def BlogCard(meta):
         cls=(CardT.hover, 'rounded-lg', 'space-x-4'))
 
 def navbar(active_page):
-    return NavBar(A("Home",href='/'),
-                  A("Blog",href=blog.to()),
-                  A("Work",href=work.to()),
-                  A("About",href=about.to()),
-                  brand=H3(active_page.capitalize()))
+    return NavBar(
+        A("Home",href='/'),
+        A("Blog",href=blog.to()),
+        A("Work",href=work.to()),
+        A("About",href=about.to()),
+        brand=H3(active_page.capitalize()))
+
+def get_emb(text, model='text-embedding-004'):
+    response = client.models.embed_content(model=model, contents=text)
+    return np.array(response.embeddings[0].values)
+
+def cos_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+@rt
+def search(query: str):
+    topic_emb = db.t.topic_emb
+    q_emb = get_emb(query)
+    results = []
+    
+    for row in topic_emb():
+        stored_emb = np.frombuffer(row['embedding'])
+        similarity = cos_sim(q_emb, stored_emb)
+        results.append((row['filename'].replace(".md", ""), row['post_heading'], similarity))
+
+    # Sort by similarity (highest first)
+    results.sort(key=lambda x: x[2], reverse=True)  # Changed from x[1] to x[2]
+
+    return Ul(*[Li(A(heading, cls=(TextPresets.muted_sm), style='color:blue;text-decoration:underline;', href=posts.to(fname=filename))) 
+                for filename, heading, _ in results[:2]])
 
 @rt
 def blog():
+    search_results_id = "search-results"
+    
+    search_form = Form(
+        DivLAligned(
+            Input(id='query', placeholder='Enter your search term...', 
+                hx_get='/search', hx_target=f'#{search_results_id}', 
+                hx_swap='innerHTML', hx_indicator='#search-spinner'),
+            Loading(id='search-spinner', cls=(LoadingT.spinner, LoadingT.sm, 'htmx-indicator')),
+            Button('Search', cls=(ButtonT.primary, ButtonT.sm)),
+        ),
+        Div(id=search_results_id), 
+    )    
     post_metas = [get_post(f"posts/{o}")[0] for o in os.listdir("posts") if o.endswith(".md")]
     post_metas = _sorted_metas(post_metas)
     post_metas = [BlogCard(o) for o in post_metas]
     return Container(
-        navbar('blog'), 
+        navbar('blog'),
         DivCentered(
             H4("Welcome to my blog!"),
             cls='space-y-2'
         ),
+        search_form,
         Grid(*post_metas, cols_max=1, cls=('space-y-4', 'mt-4')),
         cls=(ContainerT.lg, 'space-y-8', 'mt-4'))
 
@@ -124,6 +168,7 @@ def index():
         profile,
         Divider(cls='border-t-2'),
         DivHStacked(*social_links, cls='justify-center gap-6 mt-4'),
+        # os.environ['GEMINI_API_KEY'],
         # Div('Some interting projects', cls=TextPresets.muted_sm),
         cls=(ContainerT.lg, 'space-y-6 mt-12'),
         style='max-width:400px')
